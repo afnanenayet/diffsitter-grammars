@@ -1,3 +1,8 @@
+[__config__]
+oldver = "old_ver.json"
+newver = "new_ver.json"
+keyfile = "keyfile.toml"
+
 [tree-sitter-bash]
 source = "github"
 github = "tree-sitter/tree-sitter-bash"
