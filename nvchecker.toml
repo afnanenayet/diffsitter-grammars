@@ -1,0 +1,51 @@
+[tree-sitter-bash]
+source = "github"
+github = "tree-sitter/tree-sitter-bash"
+
+[tree-sitter-c]
+source = "github"
+github = "tree-sitter/tree-sitter-c"
+
+[tree-sitter-c-sharp]
+source = "github"
+github = "tree-sitter/tree-sitter-c-sharp"
+
+[tree-sitter-cpp]
+source = "github"
+github = "tree-sitter/tree-sitter-cpp"
+
+[tree-sitter-css]
+source = "github"
+github = "tree-sitter/tree-sitter-css"
+
+[tree-sitter-go]
+source = "github"
+github = "tree-sitter/tree-sitter-go"
+
+[tree-sitter-hcl]
+source = "github"
+github = "mitchellh/tree-sitter-hcl"
+
+[tree-sitter-java]
+source = "github"
+github = "tree-sitter/tree-sitter-java"
+
+[tree-sitter-ocaml]
+source = "github"
+github = "tree-sitter/tree-sitter-ocaml"
+
+[tree-sitter-php]
+source = "github"
+github = "tree-sitter/tree-sitter-php"
+
+[tree-sitter-python]
+source = "github"
+github = "tree-sitter/tree-sitter-python"
+
+[tree-sitter-ruby]
+source = "github"
+github = "tree-sitter/tree-sitter-ruby"
+
+[tree-sitter-rust]
+source = "github"
+github = "tree-sitter/tree-sitter-rust"
