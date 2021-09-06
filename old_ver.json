@@ -1,6 +1,7 @@
 {
   "tree-sitter-bash": "20210508.162913",
-  "tree-sitter-c": "sharp",
+  "tree-sitter-c": "20210816.163746",
+  "tree-sitter-c-sharp": "20210905.201606",
   "tree-sitter-cpp": "20210817.182029",
   "tree-sitter-css": "20210817.182041",
   "tree-sitter-go": "20210816.162917",
