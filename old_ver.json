@@ -1,0 +1,14 @@
+{
+  "tree-sitter-bash": "20210508.162913",
+  "tree-sitter-c": "sharp",
+  "tree-sitter-cpp": "20210817.182029",
+  "tree-sitter-css": "20210817.182041",
+  "tree-sitter-go": "20210816.162917",
+  "tree-sitter-hcl": "20210622.020052",
+  "tree-sitter-java": "20210504.210505",
+  "tree-sitter-ocaml": "20210826.192127",
+  "tree-sitter-php": "20210903.162531",
+  "tree-sitter-python": "20210327.164153",
+  "tree-sitter-ruby": "20210504.210232",
+  "tree-sitter-rust": "20210817.182111"
+}
