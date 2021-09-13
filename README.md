@@ -31,3 +31,14 @@ nvtake -c nvchecker.toml "tree-sitter-${LANGUAGE}"
 
 If you have updated the repository for the grammar then you should open a PR
 here to reflect that.
+
+It is recommended that you create a `keyfile.toml` with API tokens for Github,
+otherwise you will get rate limited very quickly because of all of the
+requests that `nvchecker` invokes.
+
+Example `keyfile.toml`:
+
+```toml
+[keys]
+github = "ghp_REDACTED"
+```
