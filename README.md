@@ -21,6 +21,12 @@ Checking for repositories that are out of date:
 nvchecker -c nvchecker.toml
 ```
 
+You can also use the `Makefile`:
+
+```sh
+make check
+```
+
 Updating the nvchecker version file once you have updated a repository:
 
 ```sh
