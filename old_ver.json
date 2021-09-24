@@ -1,8 +1,8 @@
 {
-  "tree-sitter-bash": "20210508.162913",
-  "tree-sitter-c": "20210918.192600",
-  "tree-sitter-c-sharp": "20210909.223847",
-  "tree-sitter-cpp": "20210918.155312",
+  "tree-sitter-bash": "20210922.043005",
+  "tree-sitter-c": "20210920.172148",
+  "tree-sitter-c-sharp": "20210923.072424",
+  "tree-sitter-cpp": "20210923.223855",
   "tree-sitter-css": "20210915.213251",
   "tree-sitter-go": "20210816.162917",
   "tree-sitter-hcl": "20210622.020052",
