@@ -54,3 +54,7 @@ github = "tree-sitter/tree-sitter-ruby"
 [tree-sitter-rust]
 source = "github"
 github = "tree-sitter/tree-sitter-rust"
+
+[tree-sitter-json]
+source = "github"
+github = "tree-sitter/tree-sitter-json"
