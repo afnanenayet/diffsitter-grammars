@@ -4,11 +4,11 @@
   "tree-sitter-c-sharp": "20210923.072424",
   "tree-sitter-cpp": "20210923.223855",
   "tree-sitter-css": "20210915.213251",
-  "tree-sitter-go": "20210816.162917",
+  "tree-sitter-go": "20211004.171027",
   "tree-sitter-hcl": "20210622.020052",
   "tree-sitter-java": "20210504.210505",
   "tree-sitter-ocaml": "20210826.192127",
-  "tree-sitter-php": "20210910.061650",
+  "tree-sitter-php": "20211017.070536",
   "tree-sitter-python": "20210916.110206",
   "tree-sitter-ruby": "20210504.210232",
   "tree-sitter-rust": "20210817.182111"
