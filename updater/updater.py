@@ -91,7 +91,17 @@ def update_grammar_repo(p: Path) -> None:
         )
         rm["-rf", "bindings/rust", "Cargo.toml"]()
         git["add", "."]()
-        git["commit", "-m", "'[automated] update to latest upstream'"]()
+
+        # Check if repo is dirty
+        git_status = git["status", "--short"]()
+        is_dirty = len(git_status) > 0
+
+        if is_dirty:
+            logging.debug("Repo is dirty -- committing changes")
+            git["commit", "-m", "'[automated] update to latest upstream'"]()
+        else:
+            logging.debug("Repo is not dirty")
+
         git["push"]()
         logging.info("Updated repo %s", p)
 
