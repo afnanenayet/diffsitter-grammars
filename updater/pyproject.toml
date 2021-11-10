@@ -11,7 +11,14 @@ rich = "^10.13.0"
 plumbum = "^1.7.0"
 
 [tool.poetry.dev-dependencies]
+pyflakes = "^2.4.0"
+mypy = "^0.910"
+black = "^21.10b0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+

@@ -9,23 +9,9 @@ import click
 from pathlib import Path
 import logging
 from rich.logging import RichHandler
-import subprocess
-from plumbum import local
+from plumbum import local  # type: ignore
 
 FORMAT = "%(message)s"
-
-
-def _cmd(args: List[str]) -> subprocess.CompletedProcess[bytes]:
-    """Wrapper over subprocess.
-
-    Args:
-        args: The arguments to pass to the subprocess call.
-
-    Returns:
-        Return the results.
-    """
-    results = subprocess.run(args, shell=True, check=True)
-    return results
 
 
 def find_git_repositories(p: Path) -> List[Path]:
@@ -50,24 +36,26 @@ def find_git_repositories(p: Path) -> List[Path]:
 def update_grammar_repo(p: Path) -> None:
     """Update the repository for a grammar.
 
+    This will perform the following steps:
+
+    * Clean the repository
+    * Check if the upstream is ahead of the origin's default branch
+    * Merge without commit
+    * Remove any rust binding code
+    * Add files and commit the merge
+    * Push to origin
+
     Args:
         p: The path to a repository root for a tree-sitter grammar.
     """
     logging.debug("Updating repo %s", p)
 
-    # * clean the local repository -- done
-    # * get the default branch
-    # * check if upstream has updates
-    # * merge without commit
-    # * force remove rust bindings
-    # * add everything
-    # * commit merge
-
     with local.cwd(p):
         # Clean the local repository before merging
         git = local["git"]
         rg = local["rg"]
-        res = git["clean", "-f", "-d"]()
+        rm = local["rm"]
+        git["clean", "-f", "-d"]()
 
         # Get the default branch (since people will use "main" or "master" generally
         chain = git["remote", "show", "origin"] | rg["HEAD"]
@@ -96,7 +84,16 @@ def update_grammar_repo(p: Path) -> None:
             commits_ahead,
             commits_behind,
         )
-        # TODO(afnan) continue from here
+
+        # This will return exit code 1 if there's a merge conflict
+        git["pull", "upstream", default_branch, "--ff", "--no-commit"].run(
+            retcode=(0, 1, 128)
+        )
+        rm["-rf", "bindings/rust", "Cargo.toml"]()
+        git["add", "."]()
+        git["commit", "-m", "'[automated] update to latest upstream'"]()
+        git["push"]()
+        logging.info("Updated repo %s", p)
 
 
 @click.command()
