@@ -74,12 +74,8 @@ def update_grammar_repo(p: Path) -> None:
         commit_count = [int(x.strip()) for x in branch_tracking]
         commits_behind, commits_ahead = commit_count
 
-        if commits_behind == 0:
-            logging.info("Repository %s is up to date", p)
-            return
-
         logging.info(
-            "Repository %s is up to %d commits ahead, %d behind",
+            "Repository %s is %d commits ahead, %d behind",
             p,
             commits_ahead,
             commits_behind,
