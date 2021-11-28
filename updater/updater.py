@@ -30,6 +30,7 @@ def find_git_repositories(p: Path) -> List[Path]:
             repo_path = child_path.parent.absolute()
             logging.info("Found repo %s", repo_path)
             child_repos.append(repo_path)
+
     return child_repos
 
 
