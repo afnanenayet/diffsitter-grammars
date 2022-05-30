@@ -7,8 +7,7 @@ default branch from upstream, and then delete any Rust bindings in the repositor
 from typing import List
 import click
 from pathlib import Path
-import logging
-from rich.logging import RichHandler
+from loguru import logger
 from plumbum import local  # type: ignore
 
 FORMAT = "%(message)s"
@@ -28,7 +27,7 @@ def find_git_repositories(p: Path) -> List[Path]:
     for child_path in p.rglob("*"):
         if child_path.is_dir() and child_path.stem == ".git":
             repo_path = child_path.parent.absolute()
-            logging.info("Found repo %s", repo_path)
+            logger.info(f"Found repo {repo_path}")
             child_repos.append(repo_path)
 
     return child_repos
@@ -49,7 +48,7 @@ def update_grammar_repo(p: Path) -> None:
     Args:
         p: The path to a repository root for a tree-sitter grammar.
     """
-    logging.debug("Updating repo %s", p)
+    logger.debug(f"Updating repo {p}")
 
     with local.cwd(p):
         # Clean the local repository before merging
@@ -60,11 +59,11 @@ def update_grammar_repo(p: Path) -> None:
 
         # Get the default branch (since people will use "main" or "master" generally
         chain = git["remote", "show", "origin"] | rg["HEAD"]
-        logging.debug(f"command: {chain}")
+        logger.debug(f"command: {chain}")
         # This is pretty questionable but it works for now...we find the default
         # branch by looking at which branch HEAD is pointing to
         default_branch = chain().split()[-1].strip()
-        logging.debug("Default branch is: '%s'", default_branch)
+        logger.debug(f"Default branch is: '{default_branch}'")
         branch_tracking = git[
             "rev-list",
             "--left-right",
@@ -75,11 +74,8 @@ def update_grammar_repo(p: Path) -> None:
         commit_count = [int(x.strip()) for x in branch_tracking]
         commits_behind, commits_ahead = commit_count
 
-        logging.info(
-            "Repository %s is %d commits ahead, %d behind",
-            p,
-            commits_ahead,
-            commits_behind,
+        logger.info(
+            f"Repository {p} is {commits_ahead} commits ahead, {commits_behind} behind",
         )
 
         # This will return exit code 1 if there's a merge conflict
@@ -94,13 +90,13 @@ def update_grammar_repo(p: Path) -> None:
         is_dirty = len(git_status) > 0
 
         if is_dirty:
-            logging.debug("Repo is dirty -- committing changes")
+            logger.debug("Repo is dirty -- committing changes")
             git["commit", "-m", "'[automated] update to latest upstream'"]()
         else:
-            logging.debug("Repo is not dirty")
+            logger.debug("Repo is not dirty")
 
         git["push"]()
-        logging.info("Updated repo %s", p)
+        logger.info(f"Updated repo {p}")
 
 
 @click.command()
@@ -117,7 +113,4 @@ def updater(path: Path):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(
-        level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
-    )
     updater()
