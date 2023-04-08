@@ -4,9 +4,10 @@ Given a path, this script will find all of the valid git repositories under it, 
 default branch from upstream, and then delete any Rust bindings in the repository.
 """
 
-from typing import List
-import click
 from pathlib import Path
+from typing import List
+
+import click
 from loguru import logger
 from plumbum import local  # type: ignore
 
