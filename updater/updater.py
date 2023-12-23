@@ -9,7 +9,8 @@ from typing import List
 
 import click
 from loguru import logger
-from plumbum import ProcessExecutionError, local  # type: ignore
+from plumbum import ProcessExecutionError, local
+from rich import traceback
 
 
 def find_git_repositories(p: Path) -> List[Path]:
@@ -100,7 +101,7 @@ def update_grammar_repo(p: Path) -> None:
 
 @click.command()
 @click.argument("path", type=click.Path(exists=True, path_type=Path))
-def updater(path: Path):
+def updater(path: Path) -> None:
     """Update all repositories recursively in a given path.
 
     This will perform the usual update steps for all repositories in a given grammar.
@@ -115,4 +116,5 @@ def updater(path: Path):
 
 
 if __name__ == "__main__":
+    traceback.install()
     updater()
