@@ -9,9 +9,7 @@ from typing import List
 
 import click
 from loguru import logger
-from plumbum import local  # type: ignore
-
-FORMAT = "%(message)s"
+from plumbum import ProcessExecutionError, local  # type: ignore
 
 
 def find_git_repositories(p: Path) -> List[Path]:
@@ -110,7 +108,10 @@ def updater(path: Path):
     repo_paths = find_git_repositories(path)
 
     for repo_path in repo_paths:
-        update_grammar_repo(repo_path)
+        try:
+            update_grammar_repo(repo_path)
+        except ProcessExecutionError as e:
+            raise RuntimeError(f"Failed to update {repo_path}") from e
 
 
 if __name__ == "__main__":
