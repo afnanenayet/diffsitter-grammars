@@ -82,7 +82,7 @@ def update_grammar_repo(p: Path) -> None:
         git["pull", "upstream", default_branch, "--ff", "--no-commit"].run(
             retcode=(0, 1, 128)
         )
-        rm["-rf", "bindings/rust", "Cargo.toml"]()
+        rm["-rf", "bindings/rust", "Cargo.toml", "Cargo.lock"]()
         git["add", "."]()
 
         # Check if repo is dirty
