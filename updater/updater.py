@@ -116,5 +116,5 @@ def updater(path: Path) -> None:
 
 
 if __name__ == "__main__":
-    traceback.install()
+    _ = traceback.install()
     updater()
