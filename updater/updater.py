@@ -5,7 +5,7 @@ default branch from upstream, and then delete any Rust bindings in the repositor
 """
 
 from pathlib import Path
-from typing import List
+from typing import cast
 
 import click
 from loguru import logger
@@ -13,7 +13,7 @@ from plumbum import ProcessExecutionError, local
 from rich import traceback
 
 
-def find_git_repositories(p: Path) -> List[Path]:
+def find_git_repositories(p: Path) -> list[Path]:
     """Find all git repositories in a given path.
 
     Args:
@@ -22,7 +22,7 @@ def find_git_repositories(p: Path) -> List[Path]:
     Returns:
         A list of git repositories found in the path.
     """
-    child_repos = []
+    child_repos: list[Path] = []
 
     for child_path in p.rglob("*"):
         if child_path.is_dir() and child_path.stem == ".git":
@@ -50,7 +50,7 @@ def update_grammar_repo(p: Path) -> None:
     """
     logger.debug(f"Updating repo {p}")
 
-    with local.cwd(p):
+    with local.cwd(p):  # type: ignore
         # Clean the local repository before merging
         git = local["git"]
         rg = local["rg"]
@@ -62,14 +62,17 @@ def update_grammar_repo(p: Path) -> None:
         logger.debug(f"command: {chain}")
         # This is pretty questionable but it works for now...we find the default
         # branch by looking at which branch HEAD is pointing to
-        default_branch = chain().split()[-1].strip()
+        default_branch = cast(str, chain()).split()[-1].strip()
         logger.debug(f"Default branch is: '{default_branch}'")
-        branch_tracking = git[
-            "rev-list",
-            "--left-right",
-            "--count",
-            f"upstream/{default_branch}...origin/{default_branch}",
-        ]().split()
+        branch_tracking = cast(
+            str,
+            git[
+                "rev-list",
+                "--left-right",
+                "--count",
+                f"upstream/{default_branch}...origin/{default_branch}",
+            ](),
+        ).split()
         git["remote", "update"]()
         commit_count = [int(x.strip()) for x in branch_tracking]
         commits_behind, commits_ahead = commit_count
@@ -86,7 +89,7 @@ def update_grammar_repo(p: Path) -> None:
         git["add", "."]()
 
         # Check if repo is dirty
-        git_status = git["status", "--short"]()
+        git_status = cast(str, git["status", "--short"]())
         is_dirty = len(git_status) > 0
 
         if is_dirty:
