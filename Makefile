@@ -6,4 +6,4 @@ check:
 	nvchecker -c nvchecker.toml
 
 update:
-	cd updater && poetry run python updater.py ../repos
+	cd updater && uv run python updater.py ../repos

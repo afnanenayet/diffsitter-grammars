@@ -12,7 +12,11 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["pyflakes>=2.4.0,<3", "mypy>=0.910,<0.911", "black>=24.8.0,<25"]
+dev = [
+    "pyflakes>=2.4.0,<3",
+ "mypy>=0.910,<0.911",
+ "black>=24.8.0,<25",
+]
 
 [build-system]
 requires = ["hatchling"]
